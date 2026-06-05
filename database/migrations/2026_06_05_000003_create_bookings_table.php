@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(){ Schema::create('bookings',function(Blueprint $t){$t->id();$t->string('booking_code')->unique();$t->foreignId('user_id')->constrained()->cascadeOnDelete();$t->foreignId('room_id')->constrained()->cascadeOnDelete();$t->date('check_in');$t->date('check_out');$t->integer('nights');$t->integer('guests');$t->integer('total_price');$t->enum('status',['waiting_payment','paid','confirmed','completed','cancelled'])->default('waiting_payment');$t->timestamps();}); } public function down(){ Schema::dropIfExists('bookings'); } };
