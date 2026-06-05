@@ -28,12 +28,25 @@
             </td>
             <td>{{ $b->status }}</td>
             <td>
-                @if($b->status === 'pending')
+                @if($b->status === 'waiting_payment')
                     <form
                         method="POST"
                         action="{{ route('customer.bookings.pay', $b) }}"
                     >
                         @csrf
+
+                        <select name="method" required>
+                            <option value="">Metode</option>
+                            <option value="cash">Cash</option>
+                            <option value="transfer">Transfer</option>
+                        </select>
+
+                        <input
+                            type="number"
+                            name="amount_paid"
+                            value="{{ $b->total_price }}"
+                            required
+                        >
 
                         <button type="submit">
                             Bayar
