@@ -12,6 +12,8 @@
         <th>Malam</th>
         <th>Tamu</th>
         <th>Total</th>
+        <th>Dibayar</th>
+        <th>Kembalian</th>
         <th>Status</th>
         <th>Aksi</th>
     </tr>
@@ -25,6 +27,20 @@
             <td>{{ $b->guests }}</td>
             <td>
                 Rp {{ number_format($b->total_price, 0, ',', '.') }}
+            </td>
+            <td>
+                @if($b->payment)
+                    Rp {{ number_format($b->payment->amount_paid, 0, ',', '.') }}
+                @else
+                    -
+                @endif
+            </td>
+            <td>
+                @if($b->payment && $b->payment->change_amount > 0)
+                    Rp {{ number_format($b->payment->change_amount, 0, ',', '.') }}
+                @else
+                    -
+                @endif
             </td>
             <td>{{ $b->status }}</td>
             <td>
